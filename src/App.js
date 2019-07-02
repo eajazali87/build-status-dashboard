@@ -9,7 +9,14 @@ class App extends Component {
   super()
   this.state = {
   autobahn_result: '',
+  autobahn_job:'',
+  autobahn_timeStamp:'',
+  autobahn_duration:'',
+
   ascend_result: '',
+  ascend_job:'',
+  ascend_timeStamp:'',
+  ascend_duration:'',
 }
 
 }
@@ -21,7 +28,7 @@ componentDidMount()   {
       "Accept":"application/json",
       "Authorization":"Basic dW1haGFlYTpQYXNzd29yZEAx",
     }
-  }).then(response => this.setState({ autobahn_result: response.data.result }))
+  }).then(response => this.setState({ autobahn_result: response.data.result, autobahn_job: response.data.url, autobahn_timeStamp: response.data.timestamp, autobahn_duration: response.data.duration}))
 
   axios.get('https://jenkins-skynet.pla.pearsondev.tech/view/All-In-One/job/All-In-One/lastBuild/api/json',
     {
@@ -29,7 +36,7 @@ componentDidMount()   {
         "Accept":"application/json",
         "Authorization":"Basic dW1haGFlYTpQYXNzd29yZEAx",
       }
-  }).then(response => this.setState({ ascend_result: response.data.result }))
+  }).then(response => this.setState({ ascend_result: response.data.result, ascend_job: response.data.url, ascend_timeStamp: response.data.timestamp, ascend_duration: response.data.duration }))
 }
 
 autobahnStyles = () => {
@@ -63,14 +70,23 @@ ascendStyles = () => {
         <tr>
           <th>Team</th>
           <th>Execution Status</th>
+          <th>Build URL</th>
+          <th>Time Stamp</th>
+          <th>Duration</th>
         </tr>
         <tr>
           <td>Autobahn</td>
           <td className={`autobahn_text_${this.autobahnStyles()}`}>{this.state.autobahn_result}</td>
+          <td>{this.state.autobahn_job}</td>
+          <td>{this.state.autobahn_timeStamp}</td>
+          <td>{this.state.autobahn_duration}</td>
         </tr>
         <tr>
           <td>Ascend</td>
           <td className={`ascend_text_${this.ascendStyles()}`}>{this.state.ascend_result}</td>
+          <td>{this.state.ascend_job}</td>
+          <td>{this.state.ascend_timeStamp}</td>
+          <td>{this.state.ascend_duration}</td>
         </tr>
       </table>
       </div>
