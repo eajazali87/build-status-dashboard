@@ -1,33 +1,49 @@
-.App {
+.button__container {
+  margin-top: 75px;
+  margin-left: 0px;
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+table {
+  margin-left: 480px;
+  border-collapse:collapse;
+  border-spacing: 4px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+
+table,
+th,
+td {
+  text-align: left;
+  border: 1px solid #cecfd5;
+}
+th,
+td {
+  padding: 10px 15px;
 }
 
-.App-link {
-  color: #61dafb;
+.autobahn_text_success {
+  color: green;
+  font-weight: 600;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.autobahn_text_failure {
+  color: red;
+}
+
+.autobahn_text_other {
+  color: yellow;
+}
+
+.ascend_text_success {
+  color: green;
+  font-weight: 600;
+}
+
+.ascend_text_failure {
+  color: red;
+}
+
+.ascend_text_other {
+  color: yellow;
 }
