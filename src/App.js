@@ -22,7 +22,7 @@ class App extends Component {
 }
 
 componentDidMount()   {
-  axios.get('https://jenkins-skynet.pla.pearsondev.tech/view/Autobahn-All-In-One/job/Autobahn-All-In-One/lastBuild/api/json',
+  axios.get('https://url',
   {
     headers: {
       "Accept":"application/json",
@@ -30,11 +30,11 @@ componentDidMount()   {
     }
   }).then(response => this.setState({ autobahn_result: response.data.result, autobahn_job: response.data.url, autobahn_timeStamp: response.data.timestamp, autobahn_duration: response.data.duration}))
 
-  axios.get('https://jenkins-skynet.pla.pearsondev.tech/view/All-In-One/job/All-In-One/lastBuild/api/json',
+  axios.get('https://url',
     {
       headers: {
         "Accept":"application/json",
-        "Authorization":"Basic dW1haGFlYTpQYXNzd29yZEAx",
+        "Authorization":"Basic dW1haGFXNzd29yZEAx",
       }
   }).then(response => this.setState({ ascend_result: response.data.result, ascend_job: response.data.url, ascend_timeStamp: response.data.timestamp, ascend_duration: response.data.duration }))
 }
