@@ -5,7 +5,8 @@
 }
 
 table {
-  margin-left: 480px;
+  margin-left: 80px;
+  margin-right: 80px;
   border-collapse:collapse;
   border-spacing: 4px;
 }

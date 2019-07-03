@@ -11,18 +11,20 @@ class App extends Component {
   autobahn_result: '',
   autobahn_job:'',
   autobahn_timeStamp:'',
+  autobahn_buildExecutionTime: '',
   autobahn_duration:'',
 
   ascend_result: '',
   ascend_job:'',
   ascend_timeStamp:'',
+  ascend_buildExecutionTime: '',
   ascend_duration:'',
 }
 
 }
 
 componentDidMount()   {
-  axios.get('https://url',
+  axios.get('https://jenkins-skynet.pla.pearsondev.tech/view/Autobahn-All-In-One/job/Autobahn-All-In-One/lastBuild/api/json',
   {
     headers: {
       "Accept":"application/json",
@@ -30,11 +32,11 @@ componentDidMount()   {
     }
   }).then(response => this.setState({ autobahn_result: response.data.result, autobahn_job: response.data.url, autobahn_timeStamp: response.data.timestamp, autobahn_duration: response.data.duration}))
 
-  axios.get('https://url',
+  axios.get('https://jenkins-skynet.pla.pearsondev.tech/view/All-In-One/job/All-In-One/lastBuild/api/json',
     {
       headers: {
         "Accept":"application/json",
-        "Authorization":"Basic dW1haGFXNzd29yZEAx",
+        "Authorization":"Basic dW1haGFlYTpQYXNzd29yZEAx",
       }
   }).then(response => this.setState({ ascend_result: response.data.result, ascend_job: response.data.url, ascend_timeStamp: response.data.timestamp, ascend_duration: response.data.duration }))
 }
@@ -48,6 +50,26 @@ autobahnStyles = () => {
   }
 
   return 'other'
+}
+
+autobahn_dateFormat = () => {
+  var date = new Date(this.state.autobahn_timeStamp);
+  this.state.autobahn_buildExecutionTime = date.toLocaleString();
+  return this.state.autobahn_buildExecutionTime
+}
+
+ascend_dateFormat = () => {
+  var date = new Date(this.state.ascend_timeStamp);
+  this.state.ascend_buildExecutionTime = date.toLocaleString();
+  return this.state.ascend_buildExecutionTime
+}
+
+autobahn_duration_in_minutes = () => {
+  return Number(this.state.autobahn_duration/60).toFixed(2)
+}
+
+ascend_duration_in_minutes = () => {
+  return Number(this.state.ascend_duration/60).toFixed(2)
 }
 
 ascendStyles = () => {
@@ -71,29 +93,26 @@ ascendStyles = () => {
           <th>Team</th>
           <th>Execution Status</th>
           <th>Build URL</th>
-          <th>Time Stamp</th>
-          <th>Duration</th>
+          <th>Build Last Run</th>
+          <th>Duration(mins)</th>
         </tr>
         <tr>
           <td>Autobahn</td>
           <td className={`autobahn_text_${this.autobahnStyles()}`}>{this.state.autobahn_result}</td>
-          <td>{this.state.autobahn_job}</td>
-          <td>{this.state.autobahn_timeStamp}</td>
-          <td>{this.state.autobahn_duration}</td>
+          <td><a href={this.state.autobahn_job}>{this.state.autobahn_job}</a></td>
+          <td>{this.autobahn_dateFormat()}</td>
+          <td>{this.autobahn_duration_in_minutes()}</td>
         </tr>
         <tr>
           <td>Ascend</td>
           <td className={`ascend_text_${this.ascendStyles()}`}>{this.state.ascend_result}</td>
-          <td>{this.state.ascend_job}</td>
-          <td>{this.state.ascend_timeStamp}</td>
-          <td>{this.state.ascend_duration}</td>
+          <td><a href={this.state.ascend_job}>{this.state.ascend_job}</a></td>
+          <td>{this.ascend_dateFormat()}</td>
+          <td>{this.ascend_duration_in_minutes()}</td>
         </tr>
       </table>
       </div>
-
     )
-
-
   }
 }
 export default App
